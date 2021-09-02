@@ -1,0 +1,22 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Breed {
+  country: String
+  id: Int!
+
+  """Approximate life expectancy"""
+  lifespan: Int!
+  name: String!
+}
+
+type Pet {
+  breed: Breed!
+  id: Int!
+  name: String!
+}
+
+type Query {
+  pets: [Pet!]!
+}
