@@ -9,14 +9,33 @@ type Breed {
   """Approximate life expectancy"""
   lifespan: Int!
   name: String!
+  pets: Pet
+}
+
+input CreateBreedDto {
+  country: String
+  lifespan: Int!
+  name: String!
+}
+
+input CreatePetDto {
+  breed: String
+  name: String!
+}
+
+type Mutation {
+  createBreed(createBreedDto: CreateBreedDto!): Breed!
+  createPet(createPetDto: CreatePetDto!): Pet!
 }
 
 type Pet {
-  breed: Breed!
+  breed: Breed
   id: Int!
   name: String!
 }
 
 type Query {
+  breed: Breed!
+  breeds: [Breed!]!
   pets: [Pet!]!
 }
