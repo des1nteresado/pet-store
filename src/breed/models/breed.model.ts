@@ -23,6 +23,6 @@ export class Breed {
   lifespan: number;
 
   @OneToMany(() => Pet, (pet) => pet.breed, { nullable: true })
-  @Field(() => Pet, { nullable: true })
-  pets?: Pet;
+  @Field(() => [Pet], { nullable: true })
+  pets?: Pet[];
 }

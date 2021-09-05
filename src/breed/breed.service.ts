@@ -22,7 +22,7 @@ export class BreedService {
     return this.breedRepository.find({ relations: ['pets'] });
   }
 
-  async getOne(id: string): Promise<Breed> {
-    return this.breedRepository.findOne(id);
+  async getOne(id: number): Promise<Breed> {
+    return this.breedRepository.findOneOrFail(id);
   }
 }

@@ -1,5 +1,5 @@
-import { Field, InputType } from '@nestjs/graphql';
-import { IsNumberString, IsString } from 'class-validator';
+import { Field, InputType, Int } from '@nestjs/graphql';
+import { IsNumber, IsString } from 'class-validator';
 
 @InputType()
 export class CreatePetDto {
@@ -7,7 +7,7 @@ export class CreatePetDto {
   @Field()
   name: string;
 
-  @IsNumberString()
-  @Field({ nullable: true })
-  breed?: string;
+  @IsNumber()
+  @Field(() => Int)
+  breedId: number;
 }

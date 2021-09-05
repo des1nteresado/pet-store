@@ -1,4 +1,4 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 
 import { Breed } from './models/breed.model';
 import { BreedService } from './breed.service';
@@ -14,7 +14,7 @@ export class BreedResolver {
   }
 
   @Query(() => Breed)
-  breed(id: string): Promise<Breed> {
+  breed(@Args('id', { type: () => Int }) id: number): Promise<Breed> {
     return this.breedService.getOne(id);
   }
 

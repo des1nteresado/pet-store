@@ -14,7 +14,11 @@ export class Pet {
   @Field()
   name: string;
 
-  @ManyToOne(() => Breed, (breed) => breed.pets, { nullable: true })
-  @Field(() => Breed, { nullable: true })
-  breed?: Breed;
+  @Column()
+  @Field(() => Int)
+  breedId: number;
+
+  @ManyToOne(() => Breed, (breed) => breed.pets)
+  @Field(() => Breed)
+  breed: Breed;
 }

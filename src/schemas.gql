@@ -9,7 +9,7 @@ type Breed {
   """Approximate life expectancy"""
   lifespan: Int!
   name: String!
-  pets: Pet
+  pets: [Pet!]
 }
 
 input CreateBreedDto {
@@ -19,7 +19,7 @@ input CreateBreedDto {
 }
 
 input CreatePetDto {
-  breed: String
+  breedId: Int!
   name: String!
 }
 
@@ -29,13 +29,14 @@ type Mutation {
 }
 
 type Pet {
-  breed: Breed
+  breed: Breed!
+  breedId: Int!
   id: Int!
   name: String!
 }
 
 type Query {
-  breed: Breed!
+  breed(id: Int!): Breed!
   breeds: [Breed!]!
   pets: [Pet!]!
 }
