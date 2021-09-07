@@ -1,3 +1,4 @@
+import { UpdatePetDto } from './dto/updatePet.dto';
 import {
   Args,
   Mutation,
@@ -29,5 +30,15 @@ export class PetResolver {
   @Mutation(() => Pet)
   createPet(@Args('createPetDto') createPetDto: CreatePetDto): Promise<Pet> {
     return this.petService.createPet(createPetDto);
+  }
+
+  @Mutation(() => Pet)
+  updatePet(@Args('updatePetDto') updatePetDto: UpdatePetDto): Promise<Pet> {
+    return this.petService.updatePet(updatePetDto);
+  }
+
+  @Mutation(() => String)
+  deletePet(@Args('id') id: number): Promise<string> {
+    return this.petService.deletePet(id);
   }
 }
