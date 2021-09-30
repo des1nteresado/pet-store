@@ -1,9 +1,12 @@
 import React from "react";
+import { useHistory } from "react-router";
+import { ROUTES } from "../constants";
 
 import { useDeletePet, useGetPets } from "../hooks";
 import { GET_PETS } from "../queries";
 
 const PetsList: React.FC = () => {
+    const history = useHistory();
     const {
         loading: isPetLoading,
         error,
@@ -36,7 +39,13 @@ const PetsList: React.FC = () => {
                         <button onClick={() => handleDeletePet(id)}>
                             Delete
                         </button>
-                        <button onClick={() => {}}>Update</button>
+                        <button
+                            onClick={() =>
+                                history.push(`${ROUTES.updatePet}/${id}`)
+                            }
+                        >
+                            Update
+                        </button>
                     </div>
                 ))
             ) : (

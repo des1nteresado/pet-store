@@ -1,4 +1,3 @@
-import { CREATE_BREED, CREATE_PET, DELETE_PET } from "./../queries/index";
 import { useHistory } from "react-router";
 import { useQuery, useMutation } from "@apollo/client";
 
@@ -9,9 +8,19 @@ import {
     CreateBreedDto,
     Pet,
     CreatePetDto,
+    UpdatePetDto,
+    GetPetData,
 } from "./../interfaces/index";
 import { ROUTES } from "./../constants/index";
-import { GET_BREEDS, GET_PETS } from "../queries";
+import {
+    GET_BREEDS,
+    GET_PETS,
+    CREATE_BREED,
+    CREATE_PET,
+    DELETE_PET,
+    GET_PET_BY_ID,
+    UPDATE_PET,
+} from "../queries";
 
 export const useGetBreeds = (
     onCompleted?: ((data: GetBreedsData) => void) | undefined
@@ -47,3 +56,24 @@ export const useCreatePet = () => {
 export const useDeletePet = () => {
     return useMutation<{ deletePet: string }, { id: number }>(DELETE_PET);
 };
+
+export const useUpdatePet = () => {
+    const history = useHistory();
+
+    return useMutation<{ updatePet: Pet }, { updatePetDto: UpdatePetDto }>(
+        UPDATE_PET,
+        {
+            onCompleted: () => history.push(ROUTES.pets),
+            refetchQueries: [{ query: GET_PETS }],
+        }
+    );
+};
+
+export const useGetPet = (
+    id: number,
+    onFetchedPet: (data: GetPetData) => void
+) =>
+    useQuery<GetPetData>(GET_PET_BY_ID, {
+        variables: { id },
+        onCompleted: onFetchedPet,
+    });

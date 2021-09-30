@@ -1,37 +1,38 @@
 import React, { useState } from "react";
+import { useParams } from "react-router";
 
-import { CreatePetDto, GetBreedsData } from "../interfaces";
-import { useCreatePet, useGetBreeds } from "../hooks";
+import { GetPetData, UpdatePetDto } from "../interfaces";
+import { useUpdatePet, useGetBreeds, useGetPet } from "../hooks";
 
-const CreatePet: React.FC = () => {
-    const [pet, setPet] = useState<CreatePetDto>();
-    const [createPet, { error: createPetError }] = useCreatePet();
+const UpdatePet: React.FC = () => {
+    const { id } = useParams() as any;
 
-    const onFetchBreedsCompleted = (data: GetBreedsData) => {
-        setPet((pet) => ({
-            ...pet,
-            breedId: data.breeds[0].id,
-        }));
+    const [updatePet, { error: updatePetError }] = useUpdatePet();
+    const { loading, error, data: { breeds = [] } = {} } = useGetBreeds();
+
+    const [pet, setPet] = useState<UpdatePetDto>();
+
+    const onFetchedPet = ({ pet }: GetPetData) => {
+        setPet({ id: pet.id, name: pet.name, breedId: pet.breed.id });
     };
 
-    const {
-        loading,
-        error,
-        data: { breeds = [] } = {},
-    } = useGetBreeds(onFetchBreedsCompleted);
+    const { loading: isPetLoading, error: getPetError } = useGetPet(
+        +id,
+        onFetchedPet
+    );
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
+    if (loading || isPetLoading) return <p>Loading...</p>;
+    if (error || getPetError) return <p>Error :(</p>;
 
     return (
         <div>
             <h3>Add a Pet</h3>
-            {error ? <p>Oh no! {createPetError?.message}</p> : null}
+            {error ? <p>Oh no! {updatePetError?.message}</p> : null}
             <form
                 onSubmit={(e) => {
                     e.preventDefault();
-                    createPet({
-                        variables: { createPetDto: pet as CreatePetDto },
+                    updatePet({
+                        variables: { updatePetDto: pet as UpdatePetDto },
                     });
                     setPet({});
                 }}
@@ -40,6 +41,7 @@ const CreatePet: React.FC = () => {
                     <label>Name</label>
                     <input
                         name="petName"
+                        value={pet?.name}
                         onChange={(e) =>
                             setPet((pet) => ({
                                 ...pet,
@@ -52,6 +54,7 @@ const CreatePet: React.FC = () => {
                     <label>Breed</label>
                     <select
                         name="breed"
+                        value={pet?.breedId}
                         onChange={(e) =>
                             setPet((pet) => ({
                                 ...pet,
@@ -67,17 +70,11 @@ const CreatePet: React.FC = () => {
                     </select>
                 </p>
                 <button type="submit" disabled={!breeds.length}>
-                    Create pet
+                    Update pet
                 </button>
-                {!breeds.length && (
-                    <p>
-                        There is no one breeds created. Before adding a new pet,
-                        you should create at least one breed.
-                    </p>
-                )}
             </form>
         </div>
     );
 };
 
-export default CreatePet;
+export default UpdatePet;

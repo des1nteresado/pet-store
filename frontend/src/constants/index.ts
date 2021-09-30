@@ -3,4 +3,5 @@ export const ROUTES = {
     breeds: "/breeds",
     createBreed: "/create-breed",
     createPet: "/create-pet",
+    updatePet: "/update-pet",
 };

@@ -20,6 +20,10 @@ export interface GetPetsData {
     pets: Pet[];
 }
 
+export interface GetPetData {
+    pet: Pet;
+}
+
 export interface CreateBreedDto {
     name?: string;
     country?: string;
@@ -27,6 +31,12 @@ export interface CreateBreedDto {
 }
 
 export interface CreatePetDto {
+    name?: string;
+    breedId?: number;
+}
+
+export interface UpdatePetDto {
+    id?: number;
     name?: string;
     breedId?: number;
 }
