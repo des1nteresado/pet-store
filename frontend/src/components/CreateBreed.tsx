@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { CreateBreedDto } from "../interfaces";
-import { useCreateBreed } from "../queries";
+import { useCreateBreed } from "../hooks";
 
 const CreateBreed: React.FC = () => {
     const [breed, setBreed] = useState<CreateBreedDto>();

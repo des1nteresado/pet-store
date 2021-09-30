@@ -1,6 +1,7 @@
 import React from "react";
 
-import { GET_PETS, useDeletePet, useGetPets } from "../queries";
+import { useDeletePet, useGetPets } from "../hooks";
+import { GET_PETS } from "../queries";
 
 const PetsList: React.FC = () => {
     const {

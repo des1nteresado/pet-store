@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { CreatePetDto, GetBreedsData } from "../interfaces";
-import { useCreatePet, useGetBreeds } from "../queries";
+import { useCreatePet, useGetBreeds } from "../hooks";
 
 const CreatePet: React.FC = () => {
     const [pet, setPet] = useState<CreatePetDto>();

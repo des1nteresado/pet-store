@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useGetBreeds } from "../queries";
+import { useGetBreeds } from "../hooks";
 
 const BreedsList: React.FC = () => {
     const { loading, error, data: { breeds = [] } = {} } = useGetBreeds();
