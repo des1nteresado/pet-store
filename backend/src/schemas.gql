@@ -26,7 +26,7 @@ input CreatePetDto {
 type Mutation {
   createBreed(createBreedDto: CreateBreedDto!): Breed!
   createPet(createPetDto: CreatePetDto!): Pet!
-  deletePet(id: Float!): String!
+  deletePet(id: Int!): String!
   updatePet(updatePetDto: UpdatePetDto!): Pet!
 }
 
@@ -40,6 +40,7 @@ type Pet {
 type Query {
   breed(id: Int!): Breed!
   breeds: [Breed!]!
+  pet(id: Int!): Pet!
   pets: [Pet!]!
 }
 

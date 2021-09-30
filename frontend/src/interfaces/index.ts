@@ -25,3 +25,8 @@ export interface CreateBreedDto {
     country?: string;
     lifespan?: number;
 }
+
+export interface CreatePetDto {
+    name?: string;
+    breedId?: number;
+}

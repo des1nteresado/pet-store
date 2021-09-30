@@ -6,6 +6,7 @@ import {
   Query,
   ResolveField,
   Resolver,
+  Int,
 } from '@nestjs/graphql';
 
 import { Pet } from './models/pet.model';
@@ -20,6 +21,11 @@ export class PetResolver {
   @Query(() => [Pet])
   pets(): Promise<Pet[]> {
     return this.petService.getAll();
+  }
+
+  @Query(() => Pet)
+  pet(@Args('id', { type: () => Int }) id: number): Promise<Pet> {
+    return this.petService.getOne(id);
   }
 
   @ResolveField(() => Breed)
@@ -38,7 +44,7 @@ export class PetResolver {
   }
 
   @Mutation(() => String)
-  deletePet(@Args('id') id: number): Promise<string> {
+  deletePet(@Args('id', { type: () => Int }) id: number): Promise<string> {
     return this.petService.deletePet(id);
   }
 }

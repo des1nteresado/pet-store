@@ -9,13 +9,15 @@ const BreedsList: React.FC = () => {
     if (error) return <p>Error :(</p>;
 
     return (
-        <div>
+        <div className="breedsList">
             <h2>Breeds list</h2>
             {breeds.length ? (
-                breeds.map(({ id, name, country, lifespan }) => (
-                    <p>
-                        {id} {name} {country} {lifespan}
-                    </p>
+                breeds.map(({ name, country, lifespan }) => (
+                    <div className="breedContainer">
+                        <p>
+                            {name}, Country: {country}, Lifespan: {lifespan}
+                        </p>
+                    </div>
                 ))
             ) : (
                 <p>There are no breeds in the store. Just create new one.</p>
