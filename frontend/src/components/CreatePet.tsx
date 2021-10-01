@@ -8,10 +8,12 @@ const CreatePet: React.FC = () => {
     const [createPet, { error: createPetError }] = useCreatePet();
 
     const onFetchBreedsCompleted = (data: GetBreedsData) => {
-        setPet((pet) => ({
-            ...pet,
-            breedId: data.breeds[0].id,
-        }));
+        if (data.breeds.length) {
+            setPet((pet) => ({
+                ...pet,
+                breedId: data.breeds[0]?.id,
+            }));
+        }
     };
 
     const {
