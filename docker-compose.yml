@@ -2,16 +2,14 @@ version: "3.8"
 
 services:
     client:
-        image: pet-store-client
+        image: des1nteresado/pet-store-client
         build:
             context: ./frontend
-            dockerfile: Dockerfile
         ports:
             - "1387:80"
     server:
-        image: pet-store-server
+        image: des1nteresado/pet-store-server
         build:
             context: ./backend
-            dockerfile: Dockerfile
         ports:
             - "8080:8080"
