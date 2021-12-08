@@ -10,11 +10,16 @@ pipeline {
         }
         
         stage('Docker') {
-          steps {
-            echo 'Some docker commands will be executed'
-            sh 'sudo docker ps'
-            sh 'sudo docker run hello-world'
+          withCredentials([usernamePassword(credentialsId: 'dockerHubAccount', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+              pushToImage(CONTAINER_NAME, CONTAINER_TAG, USERNAME, PASSWORD)
           }
         }
     }
+}
+
+def pushToImage(containerName, tag, dockerUser, dockerPassword){
+    sh "sudo docker login -u $dockerUser --p $dockerPassword"
+    sh "docker compose build"
+    sh "docker-compose push"
+    echo "Image push complete"
 }
