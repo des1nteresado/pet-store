@@ -21,7 +21,7 @@ pipeline {
 
 def pushToImage(dockerUser, dockerPassword){
     sh "sudo docker login -u $dockerUser -p $dockerPassword"
-    sh "docker compose build"
-    sh "docker-compose push"
+    sh "sudo docker compose build"
+    sh "sudo docker-compose push"
     echo "Image push complete"
 }
