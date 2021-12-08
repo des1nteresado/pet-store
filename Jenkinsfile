@@ -12,8 +12,8 @@ pipeline {
         stage('Docker') {
           steps {
             echo 'Some docker commands will be executed'
-            sh 'docker ps'
-            sh 'docker run hello-world'
+            sh 'sudo docker ps'
+            sh 'sudo docker run hello-world'
           }
         }
     }
