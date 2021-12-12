@@ -11,7 +11,7 @@ pipeline {
 
         stage('Image Prune') {
           steps {
-              imagePrune(CONTAINER_NAME)
+              imagePrune()
           }
         }
         
@@ -48,7 +48,7 @@ def runBackendTests(){
 def imagePrune(){
     try {
         echo 'Images prune'
-        sh "docker image prune -f"
+        sh "sudo docker image prune -f"
         echo 'Images prune completed'
     } catch(error){}
 }
@@ -57,5 +57,5 @@ def imagePush(dockerUser, dockerPassword){
     sh "sudo docker login -u $dockerUser -p $dockerPassword"
     // sh "sudo docker-compose build"
     // sh "sudo docker-compose push"
-    echo "Image push complete"
+    echo "Images push completed"
 }
