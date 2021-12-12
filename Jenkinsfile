@@ -48,7 +48,7 @@ def runBackendTests(){
 def imagePrune(){
     try {
         echo 'Images prune'
-        sh "docker image prune -f"
+        sh "sudo docker image prune -f"
         echo 'Images prune completed'
     } catch(error){}
 }
